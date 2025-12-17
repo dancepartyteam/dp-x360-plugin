@@ -13,11 +13,17 @@
 #include "Utilities.h"
 
 const char* SunriseVers = "2.1.0";
+const char* PluginVersion = "1.0.0-DPLegacy";
 
 in_addr sunrise_ip = { 174, 136, 231, 17 };
 INT sunrise_port = 8000;
-const char sunrise_description[XTITLE_SERVER_MAX_SERVER_INFO_LEN] = "required,mass_storage,other,ttl,usr,shr,web,dbg,upl,prs,std";
+// 185.14.92.137 = DP RDV
+// 19030 = X360 RDV PORT
+in_addr jd_ip = { 185, 14, 92, 137 };
+INT jd_port = 19030;
 
+const char sunrise_description[XTITLE_SERVER_MAX_SERVER_INFO_LEN] = "required,mass_storage,other,ttl,usr,shr,web,dbg,upl,prs,std";
+const char jd_description[XTITLE_SERVER_MAX_SERVER_INFO_LEN] = "";
 
 HANDLE hXam;
 BOOL bRunContinuous = TRUE;
@@ -30,6 +36,8 @@ DWORD Halo3ExternalBeta = 0x4D53880C;
 DWORD Halo3 = 0x4D5307E6;
 DWORD Halo3ODST = 0x4D530877;
 DWORD HaloReach = 0x4D53085B;
+
+DWORD JustDance2015 = 0x555308CD;
 
 BOOL bAllowRetailPlayers = TRUE;
 BOOL bIgnoreTrueskill = FALSE;
@@ -296,6 +304,11 @@ VOID Initialise()
 					break;
 				}
 				}
+			}
+			else if (TitleID == JustDance2015) {
+				RegisterActiveServer(jd_ip, jd_port, jd_description);
+      			SetupNetDllHooks();
+				XNotify(L"JD2015 Custom Servers Active!");
 			}
 		}
 		Sleep(500); // Add a slight delay to the check loop
