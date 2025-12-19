@@ -308,7 +308,7 @@ VOID Initialise()
 			else if (TitleID == JustDance2015) {
 				RegisterActiveServer(jd_ip, jd_port, jd_description);
       			SetupNetDllHooks();
-				XNotify(L"JD2015 Custom Servers Active!");
+				XNotify(L"DanceParty Enabled!");
 			}
 		}
 		Sleep(500); // Add a slight delay to the check loop
