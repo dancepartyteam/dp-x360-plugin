@@ -61,12 +61,13 @@ int XamCreateEnumeratorHandleHook(DWORD user_index, HXAMAPP app_id, DWORD open_m
 {
 	int result = XamCreateEnumeratorHandle(user_index, app_id, open_message, close_message, extra_size, item_count, flags, out_handle);
 
-	if (open_message == 0x58039) {
-		lsp_enum_handle = *out_handle;
-		enumeration_index = 0;
-	}
+	if (open_message == 0x58039 || (DWORD)app_id == 0x555308CD) {
+        lsp_enum_handle = *out_handle;
+        enumeration_index = 0;
+        XNotify(L"LSP enumeration handle set!");
+    }
 
-	return result;
+    return result;
 
 }
 
