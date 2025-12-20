@@ -59,12 +59,19 @@ int enumeration_index;
 
 int XamCreateEnumeratorHandleHook(DWORD user_index, HXAMAPP app_id, DWORD open_message, DWORD close_message, DWORD extra_size, DWORD item_count, DWORD flags, PHANDLE out_handle)
 {
-	int result = XamCreateEnumeratorHandle(user_index, app_id, open_message, close_message, extra_size, item_count, flags, out_handle);
+	// 1. Call the original function first to get a valid handle
+    int result = XamCreateEnumeratorHandle(user_index, app_id, open_message, close_message, extra_size, item_count, flags, out_handle);
 
-	if (open_message == 0x58039 || (DWORD)app_id == 0x555308CD) {
+    // 2. Log what the game is asking for (Title ID and Message ID)
+    Sunrise_Dbg("LSP Request - AppID: 0x%X | Msg: 0x%X", (DWORD)app_id, open_message);
+
+    // 3. Intercept if it's Halo (Msg 0x58039) OR Just Dance 2015 (AppID 0x555308CD)
+    // We cast (DWORD)app_id to fix the "operand types are incompatible" error
+    if (open_message == 0x58039 || (DWORD)app_id == 0x555308CD) {
         lsp_enum_handle = *out_handle;
         enumeration_index = 0;
-        XNotify(L"LSP enumeration handle set!");
+        Sunrise_Dbg(">> INTERCEPTED LSP ENUMERATOR for Custom Server Resolution");
+		XNotify("LSP intercepted!");
     }
 
     return result;
