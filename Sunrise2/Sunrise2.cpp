@@ -23,7 +23,9 @@ in_addr jd_ip = { 185, 14, 92, 137 };
 INT jd_port = 19030;
 
 const char sunrise_description[XTITLE_SERVER_MAX_SERVER_INFO_LEN] = "required,mass_storage,other,ttl,usr,shr,web,dbg,upl,prs,std";
-const char jd_description[XTITLE_SERVER_MAX_SERVER_INFO_LEN] = "RV,RVSec,SBMGMT,NAT,SessionDiscovery,NATEcho,Routing,IsKeepAliveInfinite"
+
+// FIXED: Added "Routing", Removed "Unknown!" based on .rdata dump
+const char jd_description[XTITLE_SERVER_MAX_SERVER_INFO_LEN] = "RV,RVSec,SBMGMT,NAT,SessionDiscovery,NATEcho,Routing,IsKeepAliveInfinite";
 
 HANDLE hXam;
 BOOL bRunContinuous = TRUE;
