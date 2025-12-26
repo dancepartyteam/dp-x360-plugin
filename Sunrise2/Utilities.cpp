@@ -71,7 +71,7 @@ int XamCreateEnumeratorHandleHook(DWORD user_index, HXAMAPP app_id, DWORD open_m
         lsp_enum_handle = *out_handle;
         enumeration_index = 0;
         Sunrise_Dbg(">> INTERCEPTED LSP ENUMERATOR for Custom Server Resolution");
-		XNotify("LSP intercepted!"); // FIXED: Added semicolon
+		XNotify(L"LSP intercepted!");
     }
 
     return result;
